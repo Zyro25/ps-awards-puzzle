@@ -37,7 +37,11 @@ document.addEventListener('DOMContentLoaded', () => {
             render();
             if (checkWin()) {
                 setTimeout(() => {
-                    alert('Felicitări! Ai câștigat!');
+                    const name = prompt('Felicitări! Ai câștigat! Introdu numele tău:');
+                    if (name) {
+                        const score = calculateScore(); // Implementați funcția pentru a calcula scorul
+                        submitScore(name, score);
+                    }
                 }, 100);
             }
         }
@@ -60,6 +64,29 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         } while (checkWin());
         render();
+    }
+
+    function calculateScore() {
+        // Implementați o funcție pentru a calcula scorul, dacă doriți.
+        // De exemplu, puteți returna numărul de mișcări.
+        return 100; // Exemplu de scor. Modificați după cum este necesar.
+    }
+
+    function submitScore(name, score) {
+        fetch('/submit', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ name, score })
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Score saved:', data);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
     }
 
     // Initialize the puzzle on page load
