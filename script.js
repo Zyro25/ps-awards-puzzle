@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const puzzleContainer = document.getElementById('puzzle');
-    const size = 3;
+    const size = 4;
     let pieces = [];
 
     function init() {
